@@ -1,4 +1,4 @@
-class UsersController < ApplicationControllerå
+class UsersController < ApplicationController
   before_action :ensure_correct_user, only: [:edit, :update]
   
   def show
@@ -10,7 +10,7 @@ class UsersController < ApplicationControllerå
   def index
     @users = User.all
     @book = Book.new
-    @user = current.user
+    @user = current_user
   end
   
   def edit

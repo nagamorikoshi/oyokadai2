@@ -5,16 +5,17 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     @book_new = Book.new
     @user = @book.user
+    @book_comment = BookComment.new
   end
 
   def index
     @book = Book.new
     @books = Book.all
-    @user = current_user
   end
 
   def create
     @book = Book.new(book_params)
+    @book.user = current_user
     if @book.save
       redirect_to book_path(@book), notice: "You have created book successfully."
     else
