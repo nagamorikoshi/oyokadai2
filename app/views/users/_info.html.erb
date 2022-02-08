@@ -1,5 +1,5 @@
 <table class='table'>
-  <tr><%= image_tag user.get_profile_image, size:'100x100' %></tr>
+  <tr><%= image_tag user.get_profile_image(100,100) %></tr>
   <tr>
 	  <th>name</th>
 	  <th><%= user.name %></th>
@@ -7,6 +7,23 @@
   <tr>
 	  <th>introduction</th>
 	  <th><%= user.introduction %></th>
+  </tr>
+  <tr>
+    <th>follow: <%= link_to user.followings.count, user_followings_path(user) %></th>
+  </tr>
+  <tr>
+    <th>follower: <%= link_to user.followers.count, user_followers_path(user) %></th>
+  </tr>  
+  <tr>
+    <% if user != current_user %>
+    <th>
+      <% if current_user.following?(user) %>
+        <%= link_to "フォロー外す", user_relationships_path(user.id), method: :delete %>
+      <% else %>
+        <%= link_to "フォローする", user_relationships_path(user.id), method: :post %>
+      <% end %>
+    </th>
+    <% end %>
   </tr>
 </table>
 　
